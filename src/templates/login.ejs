@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Alert</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
+        }
+        .info-box {
+            background-color: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .login-details {
+            font-size: 14px;
+            color: #666;
+        }
+        .login-details table {
+            width: 100%;
+            margin: 10px 0;
+        }
+        .login-details td {
+            padding: 8px;
+            border-bottom: 1px solid #eee;
+        }
+        .login-details td:first-child {
+            font-weight: bold;
+            width: 40%;
+            color: #333;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Login Notification</h1>
+            <p>Your account login activity</p>
+        </div>
+        <div class="content">
+            <p>Hi <%= name %>,</p>
+            <p>We wanted to notify you about a successful login to your account. If this was you, you can safely ignore this email.</p>
+
+            <div class="info-box">
+                <p><strong>Login Details:</strong></p>
+                <div class="login-details">
+                    <table>
+                        <tr>
+                            <td>Email:</td>
+                            <td><%= email %></td>
+                        </tr>
+                        <tr>
+                            <td>Login Time:</td>
+                            <td><%= loginTime %></td>
+                        </tr>
+                        <tr>
+                            <td>Device/Browser:</td>
+                            <td><%= device %></td>
+                        </tr>
+                        <tr>
+                            <td>IP Address:</td>
+                            <td><%= ipAddress %></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="warning">
+                <strong>⚠️ Security Notice:</strong> If you don't recognize this login activity or did not attempt to log in, please immediately change your password and contact our support team.
+            </div>
+
+            <p><strong>What to do:</strong></p>
+            <ul>
+                <li>If you recognize this login, no action is needed</li>
+                <li>If you don't recognize this activity, change your password immediately</li>
+                <li>Review your account activity in the security settings</li>
+                <li>Enable two-factor authentication for additional security</li>
+            </ul>
+
+            <p>We take your account security very seriously. If you have any concerns, please contact our support team.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Your Platform. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
+        </div>
+    </div>
+</body>
+</html>

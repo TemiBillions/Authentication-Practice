@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Our Platform</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
+        }
+        .otp-box {
+            background-color: #f9f9f9;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .otp-code {
+            font-size: 32px;
+            font-weight: bold;
+            color: #667eea;
+            letter-spacing: 2px;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+        }
+        .footer {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+        .button {
+            background-color: #667eea;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome, <%= name %>!</h1>
+            <p>Your account has been created successfully</p>
+        </div>
+        <div class="content">
+            <p>Hi <%= name %>,</p>
+            <p>Thank you for signing up on our platform. To complete your registration and verify your email address, please use the One-Time Password (OTP) below:</p>
+            
+            <div class="otp-box">
+                <p><strong>Your Verification OTP:</strong></p>
+                <div class="otp-code"><%= otp %></div>
+                <p style="text-align: center; color: #999; font-size: 14px;">This OTP will expire in 10 minutes</p>
+            </div>
+
+            <p>Enter this OTP on the verification page to activate your account.</p>
+            
+            <div style="text-align: center;">
+                <a href="<%= verificationLink %>" class="button">Verify Account</a>
+            </div>
+
+            <p><strong>Why do we ask for verification?</strong></p>
+            <ul>
+                <li>To secure your account</li>
+                <li>To ensure you're the rightful owner of the email</li>
+                <li>To enable important account notifications</li>
+            </ul>
+
+            <p>If you did not create this account, please ignore this email.</p>
+        </div>
+        <div class="footer">
+            <p>&copy; 2026 Your Platform. All rights reserved.</p>
+            <p>This is an automated email. Please do not reply to this message.</p>
+        </div>
+    </div>
+</body>
+</html>
