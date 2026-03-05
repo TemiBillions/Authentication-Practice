@@ -5,19 +5,19 @@ const { sendEmail } = require("../config/emails");
 
 
 
-const signup = async (req, res) => {
+const signup =  (req, res) => {
     const {name, email, password} = req.body;
     try {
         if (!name || !email || !password) {
             return res.status(400).json({message: 'All fields are required!'});
         }
 
-        const existingUser = await User.findOne({email});
+        const existingUser =  User.findOne({email});
         if (existingUser) {
             return res.status(400).json({message: 'User already exists!'});
         }
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+        const hashedPassword =  bcrypt.hash(password, 10);
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
@@ -30,10 +30,10 @@ const signup = async (req, res) => {
             otpExpiry,
         });
 
-        await newUser.save();
+         newUser.save();
 
         // Send signup verification email with template
-        await sendEmail(
+         sendEmail(
             email,
             'Verify Your Account - Welcome!',
             'signup',
