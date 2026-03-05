@@ -5,19 +5,19 @@ const { sendEmail } = require("../config/emails");
 
 
 
-const signup =  (req, res) => {
+const signup = async (req, res) => {
     const {name, email, password} = req.body;
     try {
         if (!name || !email || !password) {
             return res.status(400).json({message: 'All fields are required!'});
         }
 
-        const existingUser =  User.findOne({email});
+        const existingUser = await User.findOne({email});
         if (existingUser) {
             return res.status(400).json({message: 'User already exists!'});
         }
 
-        const hashedPassword =  bcrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         const otp = Math.floor(100000 + Math.random() * 900000).toString(); // Generate a 6-digit OTP
         const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
@@ -30,19 +30,19 @@ const signup =  (req, res) => {
             otpExpiry,
         });
 
-         newUser.save();
+        await newUser.save();
 
         // Send signup verification email with template
-         sendEmail(
-            email,
-            'Verify Your Account - Welcome!',
-            'signup',
-            {
-                name,
-                otp,
-                verificationLink: `${process.env.APP_URL || 'http://localhost:3000'}/verify-email`
-            }
-        );
+        // await sendEmail(
+        //     email,
+        //     'Verify Your Account - Welcome!',
+        //     'signup',
+        //     {
+        //         name,
+        //         otp,
+        //         verificationLink: `${process.env.APP_URL || 'http://localhost:3000'}/verify-email`
+        //     }
+        // );
     
         return res.status(201).json({message: 'User registered successfully! Please check your email to verify your account.'});
     } catch (error) {
@@ -76,18 +76,18 @@ const login = async (req, res) => {
 
         // Send login notification email with template
         const loginDate = new Date().toLocaleString();
-        await sendEmail(
-            email,
-            'Login Alert - Secure Your Account',
-            'login',
-            {
-                name: user.name,
-                email,
-                loginTime: loginDate,
-                device: 'Web Browser',
-                ipAddress: req.ip || 'Unknown'
-            }
-        ).catch(err => console.log('Login email notification failed:', err)); // Don't fail login if email fails
+        // await sendEmail(
+        //     email,
+        //     'Login Alert - Secure Your Account',
+        //     'login',
+        //     {
+        //         name: user.name,
+        //         email,
+        //         loginTime: loginDate,
+        //         device: 'Web Browser',
+        //         ipAddress: req.ip || 'Unknown'
+        //     }
+        // ).catch(err => console.log('Login email notification failed:', err)); // Don't fail login if email fails
 
         return res.status(200).json({message: 'Login successful!', token});
     } catch (error) {
@@ -112,16 +112,16 @@ const forgotPassword = async (req, res) => {
         await user.save();
 
         // Send forgot password email with template
-        await sendEmail(
-            email,
-            'Password Reset Request - Action Required',
-            'forgotPassword',
-            {
-                name: user.name,
-                otp,
-                resetLink: `${process.env.APP_URL || 'http://localhost:3000'}/reset-password`
-            }
-        );
+        // await sendEmail(
+        //     email,
+        //     'Password Reset Request - Action Required',
+        //     'forgotPassword',
+        //     {
+        //         name: user.name,
+        //         otp,
+        //         resetLink: `${process.env.APP_URL || 'http://localhost:3000'}/reset-password`
+        //     }
+        // );
 
         return res.status(200).json({message: 'OTP sent to your email. Please check your inbox.'});
     } catch (error) {
@@ -147,15 +147,15 @@ const resetPassword = async (req, res) => {
         await user.save();
 
         // Send password reset confirmation email with template
-        await sendEmail(
-            email,
-            'Password Reset Successfully',
-            'resetPassword',
-            {
-                name: user.name,
-                loginLink: `${process.env.APP_URL || 'http://localhost:3000'}/login`
-            }
-        ).catch(err => console.log('Password reset confirmation email failed:', err));
+        // await sendEmail(
+        //     email,
+        //     'Password Reset Successfully',
+        //     'resetPassword',
+        //     {
+        //         name: user.name,
+        //         loginLink: `${process.env.APP_URL || 'http://localhost:3000'}/login`
+        //     }
+        // ).catch(err => console.log('Password reset confirmation email failed:', err));
 
         return res.status(200).json({message: 'Password reset successfully! You can now log in with your new password.'});
     } catch (error) {
@@ -211,16 +211,16 @@ const resendOtp = async (req, res) => {
         await user.save();
 
         // Send resend OTP email with template
-        await sendEmail(
-            email,
-            'Verify Your Account - New OTP',
-            'signup',
-            {
-                name: user.name,
-                otp,
-                verificationLink: `${process.env.APP_URL || 'http://localhost:3000'}/verify-email`
-            }
-        );
+        // await sendEmail(
+        //     email,
+        //     'Verify Your Account - New OTP',
+        //     'signup',
+        //     {
+        //         name: user.name,
+        //         otp,
+        //         verificationLink: `${process.env.APP_URL || 'http://localhost:3000'}/verify-email`
+        //     }
+        // );
 
         return res.status(200).json({message: 'OTP resent successfully! Please check your email.'});
     } catch (error) {
